@@ -2,7 +2,7 @@
 
 var config = {
     room: window.location.href.split('?')[1] || '',
-    URL: 'http://gustavohenrique.com:3001/beta',
+    URL: 'http://clipboard.gustavohenrique.com/beta',
     intervals: {
         sendMessage: 2000,
         reconnect: 2000
@@ -61,11 +61,14 @@ var app = {
     clearMessage: function () {
         components.textarea.val('');
         components.textarea.focus();
+        app.startTimer();
     },
 
-    selectAll: function () {
+    copyMessage: function () {
+        var message = components.textarea.val();
         components.textarea.focus();
-        document.getElementById('message').setSelectionRange(0, components.textarea.val().length);
+        document.getElementById('message').setSelectionRange(0, message.length);
+        prompt('Press Ctrl+C or select the text to copy...', message);
     },
 
     resizeComponents: function () {
