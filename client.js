@@ -2,7 +2,7 @@
 
 var config = {
     room: window.location.href.split('?')[1] || '',
-    URL: 'http://gustavohenrique.com:3001/beta',
+    URL: 'https://1clipboard.net/beta',
     intervals: {
         sendMessage: 2000,
         reconnect: 2000
