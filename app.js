@@ -2,7 +2,7 @@
 
 var config = {
     room: window.location.href.split('?')[1] || '',
-    URL: 'http://10.0.0.11:3000/beta',
+    URL: 'http://1clipboard.net/beta',
     intervals: {
         sendMessage: 2000,
         reconnect: 2000
@@ -17,6 +17,23 @@ var components = {
     footer: $('footer')
 };
 
+var _encode = function (message) {
+    var m = message;
+    try {
+        m = encodeURIComponent(JSON.stringify(message));
+    }
+    catch (e) {}
+    return m;
+};
+
+var _decode = function (message) {
+    var m = message;
+    try {
+        m = JSON.parse(decodeURIComponent(message))
+    }
+    catch (e) {}
+    return m;
+};
 
 var app = {
 
@@ -26,7 +43,7 @@ var app = {
         socket.emit('enter', config.room);
 
         socket.on('clipboard', function (message) {
-            components.textarea.val(message);
+            components.textarea.val(_decode(message));
         });
 
         socket.on('discover', function (roomName) {
@@ -55,7 +72,9 @@ var app = {
 
     sendMessage: function () {
         var message = components.textarea.val();
-        socket.emit('clipboard', { 'room': config.room, 'message': message });
+        if (message !== '') {
+            socket.emit('clipboard', { 'room': config.room, 'message': _encode(message) });
+        }
     },
 
     clearMessage: function () {
