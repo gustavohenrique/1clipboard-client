@@ -6,15 +6,24 @@ var config = {
     intervals: {
         sendMessage: 2000,
         reconnect: 2000
+    },
+    dropbox: {
+        key: 'ta834kszii6ohq5'
     }
 };
 
 var components = {
     textarea: $('#message'),
     errorPanel: $('#errorPanel'),
+    errorMessage: $('#errorMessage'),
     successPanel: $('#successPanel'),
     topBar: $('#topBar'),
-    footer: $('footer')
+    footer: $('footer'),
+    uploadPanel: $('#uploadPanel'),
+    file: $('#file'),
+    progress: $('#progress'),
+    progressBar: $('#progress > .progress\-bar'),
+    urlUploadedFile: $('#urlUploadedFile')
 };
 
 var _encode = function (message) {
@@ -35,6 +44,8 @@ var _decode = function (message) {
     return m;
 };
 
+var iAmTheClientThatSendFile = false;
+
 var app = {
 
     timer: null,
@@ -46,27 +57,46 @@ var app = {
             components.textarea.val(_decode(message));
         });
 
+        socket.on('upload', function (url) {
+            var uri = _decode(url);
+            if (iAmTheClientThatSendFile) {
+                components.progressBar.width('100%');
+                components.progressBar.html('100%');
+            }
+            components.urlUploadedFile.html('<a href="' + uri + '" title="' + uri + '" target="_blank">' + uri + '</a>');
+        });
+
         socket.on('discover', function (roomName) {
             components.footer.show();
+            components.uploadPanel.show();
             config.room = roomName;
             document.getElementById('room').innerHTML = config.room;
         });
     },
 
     error: function () {
+        app.showError('Connection error. Check if you are on-line and no firewall is blocking you.');
+    },
+
+    showError: function (error) {
         components.errorPanel.show();
+        components.errorMessage.html(error);
+        components.successPanel.hide();
+        components.uploadPanel.hide();
         components.textarea.hide();
         components.footer.hide();
     },
 
     reconnect: function () {
         components.errorPanel.hide();
+        components.uploadPanel.hide();
         components.successPanel.show();
         setTimeout(function () {
             components.footer.show();
             components.successPanel.hide();
             components.textarea.show();
             components.textarea.focus();
+            components.uploadPanel.show();
         }, config.intervals.reconnect)
     },
 
@@ -75,6 +105,10 @@ var app = {
         if (message !== '') {
             socket.emit('clipboard', { 'room': config.room, 'message': _encode(message) });
         }
+    },
+
+    sendUrl: function (url) {
+        socket.emit('upload', { 'room': config.room, 'url': _encode(url) });
     },
 
     clearMessage: function () {
@@ -90,7 +124,7 @@ var app = {
     resizeComponents: function () {
         var w =$(window),
             footerHeight = $('.footer').height(),
-            height = w.height() - components.topBar.height() - footerHeight,
+            height = w.height() - components.topBar.height() - footerHeight - (components.uploadPanel.height() + 30),
             width = w.width();
 
         var getScrollBarWidth = function () {
@@ -111,8 +145,85 @@ var app = {
 
     stopTimer: function () {
         clearTimeout(app.timer);
+    },
+
+    upload: function (e) {
+        var file = e.target.files[0];
+
+        var sendToDropbox = function() {
+            var client = new Dropbox.Client({key: config.dropbox.key});
+
+            client.onError.addListener(function(error) {
+                app.showError(error);
+            });
+
+            client.authenticate(function(error, client) {
+                if (error) {
+                    app.showError(error);
+                }
+
+                var filename = '/' + file.name;
+
+                client.writeFile(filename, file , function(error, status) {
+                    if (error) {
+                        app.showError(error);
+                    }
+
+                    client.makeUrl(filename, {download: true}, function (error, shareUrl) {
+                        iAmTheClientThatSendFile = true;
+                        app.sendUrl(shareUrl.url);
+                    });
+                });
+            });
+        };
+
+        var divideFileInParts = function (file, callback) {
+            components.progress.show();
+            components.progressBar.width('0%');
+            components.progressBar.html('0%');
+            components.urlUploadedFile.html('');
+
+            var chunkSize = 4096,
+                size = file.size,
+                offset = 0,
+                chunk = file.slice(offset, offset + chunkSize);
+
+            var hashChunk = function() {
+                var reader = new FileReader({ 'blob': true });
+
+                reader.onload = function(e) {
+                    offset += chunkSize;
+                    
+                    var percentLoaded = Math.round((offset / size) * 100);
+                    if (percentLoaded < 100) {
+                        components.progressBar.width(percentLoaded + '%');
+                        components.progressBar.html(percentLoaded + '%');
+                    }
+
+                    if (offset < size) {
+                        chunk = file.slice(offset, offset + chunkSize);
+                        hashChunk();
+                    }
+                    else {
+                        callback.call(this);
+                    }
+                };
+
+                reader.onerror = function (evt) {
+                    app.showError(evt);
+                };
+
+                reader.readAsArrayBuffer(chunk);
+            };
+
+            hashChunk();
+        };
+
+        divideFileInParts(file, sendToDropbox);
+
     }
 };
+
 
 var socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
 socket.on('connection', app.connect);
@@ -131,3 +242,6 @@ window.onload = function () {
 window.onresize = function () {
     app.resizeComponents();
 };
+
+components.file.on('change', app.upload);
+

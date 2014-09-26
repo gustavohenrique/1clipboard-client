@@ -20,16 +20,28 @@
 
     <main>
         <div id="errorPanel" class="panel error">
-            <h2>Connection Error.</h2>
-            <p>Check if you are on-line and no firewall is blocking you.</p>
+            <h2>Error</h2>
+            <p id="errorMessage"></p>
         </div>
 
         <div id="successPanel" class="panel success">
             <h2>We back!</h2>
-            <p>Establishing connection...</p>
+            <p id="successMessage">Establishing connection...</p>
         </div>
 
         <div>
+            <div id="uploadPanel" class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">File Upload</h3>
+                </div>
+                <div class="panel-body">
+                    <input type="file" id="file"/>
+                    <div id="progress" class="progress">
+                        <div class="progress-bar">0%</div>
+                    </div>
+                    <div id="urlUploadedFile"></div>
+                </div>
+            </div>
             <textarea id="message" class="text" maxlength="2000" autofocus></textarea>
         </div>
     </main>
@@ -48,6 +60,6 @@
     <script src="socket.io.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
 
-
+    <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.2-latest.js" type="text/javascript"></script>
 </body>
 </html>
