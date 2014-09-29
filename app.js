@@ -18,9 +18,8 @@ var components = {
     errorMessage: $('#errorMessage'),
     successPanel: $('#successPanel'),
     topBar: $('#topBar'),
-    footer: $('footer'),
     uploadPanel: $('#uploadPanel'),
-    file: $('#file'),
+    file: $('#txtFile'),
     progress: $('#progress'),
     progressBar: $('#progress > .progress\-bar'),
     urlUploadedFile: $('#urlUploadedFile')
@@ -67,7 +66,6 @@ var app = {
         });
 
         socket.on('discover', function (roomName) {
-            components.footer.show();
             components.uploadPanel.show();
             config.room = roomName;
             document.getElementById('room').innerHTML = config.room;
@@ -84,7 +82,6 @@ var app = {
         components.successPanel.hide();
         components.uploadPanel.hide();
         components.textarea.hide();
-        components.footer.hide();
     },
 
     reconnect: function () {
@@ -92,7 +89,6 @@ var app = {
         components.uploadPanel.hide();
         components.successPanel.show();
         setTimeout(function () {
-            components.footer.show();
             components.successPanel.hide();
             components.textarea.show();
             components.textarea.focus();
@@ -145,6 +141,28 @@ var app = {
 
     stopTimer: function () {
         clearTimeout(app.timer);
+    },
+
+    start: function () {
+        var socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
+        socket.on('connection', app.connect);
+        socket.on('connect_error', app.error);
+        socket.on('reconnect', app.reconnect);
+
+        components.textarea.on('keyup', app.startTimer);
+        components.textarea.on('keydown', app.stopTimer);
+        components.textarea.on('paste', app.startTimer);
+
+        window.onload = function () {
+            app.resizeComponents();
+            components.textarea.focus();
+        };
+
+        window.onresize = function () {
+            app.resizeComponents();
+        };
+
+        components.file.on('change', app.upload);
     },
 
     upload: function (e) {
@@ -225,23 +243,5 @@ var app = {
 };
 
 
-var socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
-socket.on('connection', app.connect);
-socket.on('connect_error', app.error);
-socket.on('reconnect', app.reconnect);
 
-components.textarea.on('keyup', app.startTimer);
-components.textarea.on('keydown', app.stopTimer);
-components.textarea.on('paste', app.startTimer);
-
-window.onload = function () {
-    app.resizeComponents();
-    components.textarea.focus();
-};
-
-window.onresize = function () {
-    app.resizeComponents();
-};
-
-components.file.on('change', app.upload);
 
