@@ -20,7 +20,7 @@ body {
     box-sizing: border-box;
 }
 
-h1 {
+.top-bar h1 {
     margin: 0;
     padding: 0;
     font-weight: normal;
@@ -28,6 +28,21 @@ h1 {
     color: #fff;
     margin-left: 10px;
     text-align: center;
+}
+
+.circle {
+    background: green;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.circle.disconnected {
+    background: #ec514e;
 }
 
 .panel.error, .panel.success {
@@ -98,7 +113,7 @@ footer a.button {
     padding-bottom: 9px;
     border: 1px solid #333;
     color: #fff;
-    cursor: pointer;
+    cursor: default;
 }
 
 footer a.button.selected {
@@ -111,6 +126,13 @@ footer a.button:hover {
     background: #759ECC;
 }
 
+footer a.button.disabled {
+    color: gray;
+}
+
+footer a.button.disabled:hover {
+    background-color: transparent;
+}
 
 
 /* upload */

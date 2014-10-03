@@ -28,10 +28,11 @@
     <link rel="stylesheet" href="icons.min.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body onload="app.core.start()">
 
     <header id="topBar" class="top-bar">
         <h1>1clipboard</h1>
+        <div id="statusConnectionIcon" class="circle disconnected"></div>
     </header>
 
     <main>
@@ -48,23 +49,23 @@
         <div class="content">
 
             <div class="subpage home">
-                <p>Create your clipboard name.</p>
+                <p>Create or join using a name.</p>
                 <div class="field">
-                    <input id="txtName" class="text" placeholder="" type="text" maxlength="5" autofocus>
+                    <input id="txtRoom" class="text" placeholder="" type="text" maxlength="5" autofocus>
                 </div>
                 <div class="field">
-                    <button class="primary full">Enter</button>
+                    <button id="btnEnter" class="primary full">Enter</button>
                 </div>
             </div>
 
             <div class="subpage message hide">
-                <p>Type and share instantly your message.</p>
+                <p>Share instantly your message.</p>
                 <div class="field">
                     <textarea id="message" rows="5" maxlength="2000" autofocus></textarea>
                 </div>
                 <div class="field center">
-                    <button class="primary">Copy</button>
-                    <button>Clear</button>
+                    <button id="btnCopyMessage" class="primary">Copy</button>
+                    <button id="btnClearMessage">Clear</button>
                 </div>
             </div>
 
@@ -82,23 +83,26 @@
             <div class="subpage about hide">
                 <p>Visit <a href="http://1clipboard.net">http://1clipboard.net</a></p>
             </div>
-
             
         </div>
     </main>
 
     <footer>
         <a class="button selected icon home">&nbsp;<span class="name">Home</span></a>
-        <a class="button icon chat">&nbsp;<span class="name">Message</span></a>
-        <a class="button icon paper">&nbsp;<span class="name">File</span></a>
-        <a class="button icon info">&nbsp;<span class="name">About</span></a>
+        <a class="button disabled icon chat">&nbsp;<span class="name">Message</span></a>
+        <a class="button disabled icon paper">&nbsp;<span class="name">File</span></a>
+        <a class="button disabled icon info">&nbsp;<span class="name">About</span></a>
     </footer>
 
     <script src="zepto.min.js" charset="utf-8"></script>
     <script src="socket.io.js" charset="utf-8"></script>
-    <script src="app.js" charset="utf-8"></script>
+    <script src="config.js" charset="utf-8"></script>
+    <script src="util.js" charset="utf-8"></script>
+    <script src="core.js" charset="utf-8"></script>
     <script src="ui.js" charset="utf-8"></script>
 
+    <!--
     <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.2-latest.js" type="text/javascript"></script>
+    -->
 </body>
 </html>
