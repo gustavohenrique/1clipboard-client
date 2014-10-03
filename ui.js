@@ -1,6 +1,4 @@
-var app = app || {};
-
-(function () {
+var app = (function (app) {
     'use strict';
 
     var subpages = {
@@ -41,7 +39,8 @@ var app = app || {};
         txtRoom: $('#txtRoom'),
         btnEnter: $('#btnEnter'),
         btnClearMessage: $('#btnClearMessage'),
-        btnCopyMessage: $('#btnCopyMessage')
+        btnCopyMessage: $('#btnCopyMessage'),
+        btnUploadDropbox: $('#btnUploadDropbox')
     };
 
     var view = function (evt) {
@@ -82,6 +81,8 @@ var app = app || {};
             components.btnCopyMessage.on('click', function () {
                 prompt('Copy...', components.textarea.val());
             });
+
+            components.btnUploadDropbox.on('click', app.upload.sendToDropbox);
         },
 
         afterConnect: function () {
@@ -112,5 +113,6 @@ var app = app || {};
 
     };
     
+    return app;
     
-})();
+}(app || {}));

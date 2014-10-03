@@ -1,6 +1,4 @@
-var app = app || {};
-
-(function () {
+var app = (function (app) {
     'use strict';
 
     app.config = {
@@ -15,4 +13,6 @@ var app = app || {};
         }
     };
 
-})();
+    return app;
+
+}(app || {}));

@@ -1,6 +1,4 @@
-var app = app || {};
-
-(function () {
+var app = (function (app) {
 
     var config = app.config,
         _decode = app.util.decode,
@@ -71,8 +69,6 @@ var app = app || {};
             app.UI.components.textarea.on('keyup', startTimer);
             app.UI.components.textarea.on('keydown', stopTimer);
             app.UI.components.textarea.on('paste', startTimer);
-
-            //app.UI.components.file.on('change', upload);
         }
     };
 
@@ -90,7 +86,11 @@ var app = app || {};
             };
             app.UI.components.txtRoom.val(createRandomRoom());
             app.UI.components.btnEnter.on('click', enterRoom);
-        }
+        },
+        
+        sendUploadedFileUrl: sendUploadedFileUrl
     };
 
-})();
+    return app;
+
+}(app || {}));

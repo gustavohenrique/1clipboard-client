@@ -1,30 +1,38 @@
+var app = (function (app) {
+    'use strict';
 
-/*
-        upload: function (e) {
-            var file = e.target.files[0];
+    var UI = app.ui,
+        core = app.core,
+        iAmTheClientThatSendFile = false;
 
-            var sendToDropbox = function() {
-                var client = new Dropbox.Client({key: config.dropbox.key});
+    app.upload = {
+
+        sendToDropbox: function () {
+            //var file = e.target.files[0];
+            var file = document.querySelector('#txtFile').files[0];
+
+            var send = function() {
+                var client = new Dropbox.Client({key: app.config.dropbox.key});
 
                 client.onError.addListener(function(error) {
-                    app.showError(error);
+                    UI.displayError(error);
                 });
 
                 client.authenticate(function(error, client) {
                     if (error) {
-                        app.showError(error);
+                        UI.displayError(error);
                     }
 
                     var filename = '/' + file.name;
 
                     client.writeFile(filename, file , function(error, status) {
                         if (error) {
-                            app.showError(error);
+                            UI.displayError(error);
                         }
 
                         client.makeUrl(filename, {download: true}, function (error, shareUrl) {
                             iAmTheClientThatSendFile = true;
-                            app.sendUrl(shareUrl.url);
+                            core.sendUploadedFileUrl(shareUrl.url);
                         });
                     });
                 });
@@ -63,7 +71,7 @@
                     };
 
                     reader.onerror = function (evt) {
-                        app.showError(evt);
+                        UI.displayError(evt);
                     };
 
                     reader.readAsArrayBuffer(chunk);
@@ -72,8 +80,11 @@
                 hashChunk();
             };
 
-            divideFileInParts(file, sendToDropbox);
+            divideFileInParts(file, send);
 
         }
     };
-*/
+
+    return app;
+
+}(app || {}));
