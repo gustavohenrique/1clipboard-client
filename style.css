@@ -45,16 +45,21 @@ body {
     background: #ec514e;
 }
 
-.panel.error, .panel.success {
+.panel {
     display: none;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
 }
 
-.panel.error h2, .panel.success h2 {
+.panel h2 {
     font-weight: bold;
     font-size: 2rem;
+    margin: 0;
 }
 
-.panel.error p, .panel.success p {
+.panel p {
     font-size: 1.5rem;
 }
 
@@ -62,10 +67,6 @@ body {
     background: none repeat scroll 0 0 #dff0d8;
     border-color: #d6e9c6;
     border-style: solid;
-    border-width: 1px;
-    color: #3c763d;
-    margin-bottom: 1.25rem;
-    padding: 1.25rem;
 }
 
 .panel.success h2, .panel.success p {
@@ -75,15 +76,21 @@ body {
 .panel.error {
     background: none repeat scroll 0 0 #f2dede;
     border-color: #ebccd1;
-    border-style: solid;
-    border-width: 1px;
     color: #a94442;
-    margin-bottom: 1.25rem;
-    padding: 1.25rem;
 }
 
 .panel.error h2, .panel.error p {
     color: #a94442;
+}
+
+.panel.info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+
+.panel.info h2, .panel.info p {
+    color: #31708f;
 }
 
 
@@ -137,7 +144,7 @@ footer a.button.disabled:hover {
 
 /* upload */
 
-.panel {
+.upload.panel {
     display: none;
     border-color: #428bca;
     margin-bottom: 20px;
@@ -148,7 +155,7 @@ footer a.button.disabled:hover {
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
-.panel-title {
+.upload .panel-title {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
@@ -156,20 +163,20 @@ footer a.button.disabled:hover {
     color: inherit;
 }
 
-.panel-primary>.panel-heading {
+.upload .panel-primary > .panel-heading {
     color: #fff;
     background-color: #428bca;
     border-color: #428bca;
 }
 
-.panel-heading {
+.upload .panel-heading {
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
 
-.panel-body {
+.upload .panel-body {
     line-height: 50px;
     padding-left: 10px;
     padding-right: 10px;
@@ -207,8 +214,12 @@ footer a.button.disabled:hover {
     padding: 10px;
 }
 
-.content > .hide {
+.hide {
     display: none;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .field {

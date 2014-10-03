@@ -4,19 +4,20 @@ var app = (function (app) {
     var subpages = {
         home: {
             button: $('.button.home'),
-            content: $('.home')
+            content: $('.home'),
+            panel: $('.subpage.home > .panel')
         },
         message: {
             button: $('.button.chat'),
-            content: $('.message')
+            content: $('.subpage.message')
         },
         upload: {
             button: $('.button.paper'),
-            content: $('.upload')
+            content: $('.subpage.upload')
         },
         about: {
             button: $('.button.info'),
-            content: $('.about')
+            content: $('.subpage.about')
         }
     };
 
@@ -51,6 +52,8 @@ var app = (function (app) {
     };
 
     app.UI = {
+
+        subpages: subpages,
 
         components: components,
 
@@ -92,6 +95,8 @@ var app = (function (app) {
             app.UI.addButtonsEvents();
             app.UI.components.content.show();
             app.UI.components.footer.show();
+            app.UI.subpages.home.panel.show();
+            $('.subpage.home > .panel .room').html(app.config.room);
         },
 
         displayError: function (message) {

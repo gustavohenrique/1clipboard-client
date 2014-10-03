@@ -5,13 +5,14 @@ var app = (function (app) {
         _encode = app.util.encode,
         iAmTheClientThatSendFile = false,
         timer = null,
-        socket = {};
+        socket = null;
 
     var onConnect = function () {
         socket.emit('enter', config.room);
 
         socket.on('clipboard', function (message) {
             app.UI.components.textarea.val(_decode(message));
+            app.UI.subpages.message.button.trigger('click');
         });
 
         socket.on('upload', function (url) {
@@ -61,14 +62,20 @@ var app = (function (app) {
         var room = app.UI.components.txtRoom.val();
         if (room !== undefined && room !== '') {
             config.room = room;
-            socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
-            socket.on('connection', onConnect);
-            socket.on('connect_error', onError);
-            socket.on('reconnect', onReconnect);
+            if (socket !== null) {
+                socket.emit('enter', room);
+            }
+            else {
+                socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
+            }
+                socket.on('connection', onConnect);
+                socket.on('connect_error', onError);
+                socket.on('reconnect', onReconnect);
 
-            app.UI.components.textarea.on('keyup', startTimer);
-            app.UI.components.textarea.on('keydown', stopTimer);
-            app.UI.components.textarea.on('paste', startTimer);
+                app.UI.components.textarea.on('keyup', startTimer);
+                app.UI.components.textarea.on('keydown', stopTimer);
+                app.UI.components.textarea.on('paste', startTimer);
+            
         }
     };
 
