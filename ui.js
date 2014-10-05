@@ -33,7 +33,6 @@ var app = (function (app) {
         successPanel: $('#successPanel'),
         topBar: $('#topBar'),
         uploadPanel: $('#uploadPanel'),
-        file: $('#txtFile'),
         progress: $('#progress'),
         progressBar: $('#progress > .progress\-bar'),
         urlUploadedFile: $('#urlUploadedFile'),
@@ -41,7 +40,9 @@ var app = (function (app) {
         btnEnter: $('#btnEnter'),
         btnClearMessage: $('#btnClearMessage'),
         btnCopyMessage: $('#btnCopyMessage'),
-        btnUploadDropbox: $('#btnUploadDropbox')
+        btnAuthenticate: $('#btnAuthenticate'),
+        btnUpload: $('#btnUpload'),
+        txtFile: $('#txtFile')
     };
 
     var view = function (evt) {
@@ -78,14 +79,13 @@ var app = (function (app) {
         addButtonsEvents: function () {
             components.btnClearMessage.on('click', function () {
                 components.textarea.val('');
-                components.textarea.focus();
             });
 
             components.btnCopyMessage.on('click', function () {
                 prompt('Copy...', components.textarea.val());
             });
 
-            components.btnUploadDropbox.on('click', app.upload.sendToDropbox);
+            //components.btnUpload.on('click', app.upload.sendToDropbox);
         },
 
         afterConnect: function () {

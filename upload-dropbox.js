@@ -12,7 +12,7 @@ var app = (function (app) {
             var file = document.querySelector('#txtFile').files[0];
 
             var send = function() {
-                var client = new Dropbox.Client({key: app.config.dropbox.key});
+                var client = new Dropbox.Client({key: app.config.keys.dropbox});
 
                 client.onError.addListener(function(error) {
                     UI.displayError(error);

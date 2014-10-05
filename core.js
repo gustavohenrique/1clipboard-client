@@ -93,6 +93,7 @@ var app = (function (app) {
             };
             app.UI.components.txtRoom.val(createRandomRoom());
             app.UI.components.btnEnter.on('click', enterRoom);
+            app.upload.checkAuth();
         },
         
         sendUploadedFileUrl: sendUploadedFileUrl

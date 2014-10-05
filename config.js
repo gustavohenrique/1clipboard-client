@@ -3,13 +3,14 @@ var app = (function (app) {
 
     app.config = {
         room: '',
-        URL: 'http://localhost:3000/beta',
+        URL: 'http://1clipboard.net:3001/beta',
         intervals: {
             sendMessage: 2000,
             reconnect: 2000
         },
-        dropbox: {
-            key: 'ta834kszii6ohq5'
+        keys: {
+            dropbox: 'ta834kszii6ohq5',
+            drive: '729530664624-me2261q5maha5htl1egovh6m95iasckg.apps.googleusercontent.com'
         }
     };
 
