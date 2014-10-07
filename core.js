@@ -91,7 +91,9 @@ var app = (function (app) {
 
                 return room;
             };
-            app.UI.components.txtRoom.val(createRandomRoom());
+            app.UI.components.btnSuggest.on('click', function () {
+                app.UI.components.txtRoom.val(createRandomRoom());
+            });
             app.UI.components.btnEnter.on('click', enterRoom);
             app.upload.checkAuth();
         },

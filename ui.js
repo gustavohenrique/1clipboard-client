@@ -38,6 +38,7 @@ var app = (function (app) {
         urlUploadedFile: $('#urlUploadedFile'),
         txtRoom: $('#txtRoom'),
         btnEnter: $('#btnEnter'),
+        btnSuggest: $('#btnSuggest'),
         btnClearMessage: $('#btnClearMessage'),
         btnCopyMessage: $('#btnCopyMessage'),
         btnAuthenticate: $('#btnAuthenticate'),

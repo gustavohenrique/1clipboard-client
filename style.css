@@ -226,13 +226,21 @@ footer a.button.disabled:hover {
     margin-bottom: 20px;
 }
 
+.table {
+    display: table;
+}
+
+.cell {
+    display: table-cell;
+}
+
 .field.center {
     text-align: center;
 }
 
 .field input.text {
     line-height: 3rem;
-    font-size: 2rem;
+    font-size: 1.2rem;
     letter-spacing: 1px;
     padding: 0 10px;
     border: 1px solid #9daca9;
@@ -241,14 +249,20 @@ footer a.button.disabled:hover {
     box-shadow: inset 0 1px rgba(0,0,0,0.1);
     color: #333;
     vertical-align: top;
-    width: 100%;
-    height: 60px;
+    height: 50px;
     outline: none;
     -webkit-box-sizing: border-box;‌​
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
+.suggest {
+    margin-left: 10px;
+}
+
+.align.right {
+    text-align: right;
+}
 
 button {
     padding: 0 1.25rem;
@@ -291,7 +305,7 @@ button.primary:hover {
     background-color: #4ca1e4;
 }
 
-button.full {
+.full {
     width: 100%;
 }
 
@@ -304,7 +318,7 @@ textarea {
     resize: none;
     outline: none;
     padding: 0 10px;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 400;
     border-radius: 6px;
     line-height: 3rem;
