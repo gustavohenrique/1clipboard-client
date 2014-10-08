@@ -31,6 +31,7 @@ var app = (function (app) {
         errorPanel: $('#errorPanel'),
         errorMessage: $('#errorMessage'),
         successPanel: $('#successPanel'),
+        connectionPanel: $('#connectionPanel'),
         topBar: $('#topBar'),
         uploadPanel: $('#uploadPanel'),
         progress: $('#progress'),
@@ -97,7 +98,8 @@ var app = (function (app) {
             app.UI.components.content.show();
             app.UI.components.footer.show();
             app.UI.subpages.home.panel.show();
-            $('.subpage.home > .panel .room').html(app.config.room);
+            app.UI.components.connectionPanel.removeClass('hide');
+            app.UI.components.connectionPanel.find('.room').html(app.config.room);
         },
 
         displayError: function (message) {

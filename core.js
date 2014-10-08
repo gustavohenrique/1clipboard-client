@@ -15,13 +15,15 @@ var app = (function (app) {
             app.UI.subpages.message.button.trigger('click');
         });
 
-        socket.on('upload', function (url) {
-            var uri = _decode(url);
+        socket.on('upload', function (file) {
+            var uri = _decode(file.url),
+                filename = _decode(file.filename);
+
             if (iAmTheClientThatSendFile) {
                 app.UI.components.progressBar.width('100%');
                 app.UI.components.progressBar.html('100%');
             }
-            app.UI.components.urlUploadedFile.html('<a href="' + uri + '" title="' + uri + '" target="_blank">' + uri + '</a>');
+            app.UI.components.urlUploadedFile.html('<a href="' + uri + '" title="Download" target="_blank">' + filename + '</a>');
         });
 
         socket.on('discover', function (roomName) {
@@ -45,8 +47,8 @@ var app = (function (app) {
         }
     };
 
-    var sendUploadedFileUrl = function (url) {
-        socket.emit('upload', { 'room': config.room, 'url': _encode(url) });
+    var sendUploadedFile = function (file) {
+        socket.emit('upload', { 'room': config.room, 'file': { filename: _encode(file.filename), url: _encode(file.url) } });
     };
 
     var startTimer = function () {
@@ -98,7 +100,7 @@ var app = (function (app) {
             app.upload.checkAuth();
         },
         
-        sendUploadedFileUrl: sendUploadedFileUrl
+        sendUploadedFile: sendUploadedFile
     };
 
     return app;

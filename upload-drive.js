@@ -80,7 +80,10 @@ var app = (function (app) {
             var file = document.querySelector('#txtFile').files[0];
             gapi.client.load('drive', 'v2', function() {
                 insertFile(file, function(data) {
-                    core.sendUploadedFileUrl(data.webContentLink);
+                    core.sendUploadedFile({
+                        filename: data.title || data.originalFilename,
+                        url: data.webContentLink
+                    });
                     insertPermission(data.id, '', 'anyone', 'reader');
                 });
             });
