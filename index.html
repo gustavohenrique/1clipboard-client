@@ -52,13 +52,13 @@
             <div class="subpage home">
                 <p>Create or join using a name.</p>
                 <div class="field table">
-                    <input id="txtRoom" class="text full cell" type="text" maxlength="20" autofocus>
+                    <input id="txtRoom" class="text full cell" type="text" maxlength="20" autocomplete="off" autofocus>
                     <div class="cell">
-                        <button id="btnSuggest" class="icon lamp suggest"></button>
+                        <button id="btnSuggest" class="btn btn-default btn-lg suggest icon lamp"></button>
                     </div>
                 </div>
                 <div class="field">
-                    <button id="btnEnter" class="primary full">Enter</button>
+                    <button id="btnEnter" class="btn btn-primary btn-lg full">Enter</button>
                 </div>
                 <div class="panel info hide">
                     <p>Connected on <span class="room bold"></span></p>
@@ -71,8 +71,8 @@
                     <textarea id="message" rows="5" maxlength="2000" autofocus></textarea>
                 </div>
                 <div class="field center">
-                    <button id="btnCopyMessage" class="primary">Copy</button>
-                    <button id="btnClearMessage">Clear</button>
+                    <button id="btnCopyMessage" class="btn btn-primary btn-lg">Copy</button>
+                    <button id="btnClearMessage" class="btn btn-default btn-lg">Clear</button>
                 </div>
             </div>
 
@@ -82,8 +82,8 @@
                     <input type="file" id="txtFile" class="hide" />
                 </div>
                 <div class="field">
-                    <button id="btnAuthenticate" class="primary hide">Authenticate</button>
-                    <button id="btnUpload" class="primary hide">Upload</button>
+                    <button id="btnAuthenticate" class="btn btn-primary btn-lg hide">Authenticate on Google Drive</button>
+                    <button id="btnUpload" class="btn btn-success btn-lg hide">Upload</button>
                 </div>
                 <div id="progress" class="progress">
                     <div class="progress-bar">0%</div>

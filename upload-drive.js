@@ -7,16 +7,17 @@ var app = (function (app) {
         iAmTheClientThatSendFile = false;
 
     var handleAuthResult = function (authResult) {
+        var cssHideClass = 'hide';
         if (authResult && !authResult.error) {
-            UI.components.txtFile.show();
-            UI.components.btnAuthenticate.hide();
-            UI.components.btnUpload.show();
+            UI.components.txtFile.removeClass(cssHideClass);
+            UI.components.btnAuthenticate.addClass(cssHideClass);
+            UI.components.btnUpload.removeClass(cssHideClass);
             UI.components.btnUpload.on('click', app.upload.sendToDrive);
         }
         else {
-            UI.components.btnUpload.hide();
-            UI.components.txtFile.hide();
-            UI.components.btnAuthenticate.show();
+            UI.components.btnUpload.addClass(cssHideClass);
+            UI.components.txtFile.addClass(cssHideClass);
+            UI.components.btnAuthenticate.removeClass(cssHideClass);
             UI.components.btnAuthenticate.on('click', function () {
                 gapi.auth.authorize({'client_id': app.config.keys.drive, 'scope': SCOPES, 'immediate': false}, handleAuthResult);
             });
@@ -35,7 +36,7 @@ var app = (function (app) {
                 var body = {'value': value, 'type': type, 'role': role},
                     request = gapi.client.drive.permissions.insert({'fileId': fileId, 'resource': body});
 
-                request.execute(function(resp) { console.log('permisao inserida',resp); });
+                request.execute(function(resp) { /* nothing to do after insert permission */ });
             };
 
             var insertFile = function (fileData, callback) {
