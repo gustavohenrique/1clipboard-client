@@ -1,0 +1,10 @@
+{
+  "name": "poupaniquel-webclient",
+  "private": true,
+  "dependencies": {
+    "normalize-css": "~3.0.2",
+    "zepto": "~1.1.4",
+    "socket.io-client": "~1.1.0"
+  },
+  "devDependencies": {}
+}
