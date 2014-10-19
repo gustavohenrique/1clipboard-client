@@ -24,7 +24,7 @@ var app = (function (app) {
     var components = {
         content: $('.content'),
         footer: $('footer'),
-        buttons: $('a.button'),
+        buttons: $('li.button'),
         subpages: $('.subpage'),
         statusConnectionIcon: $('#statusConnectionIcon'),
         textarea: $('#message'),

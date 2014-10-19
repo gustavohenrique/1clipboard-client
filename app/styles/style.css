@@ -102,7 +102,6 @@ body {
 footer {
     text-align: center;
     background: none repeat scroll 0 0 #333;
-    height: 43px;
     font-weight: normal;
     position: fixed;
     bottom: 0;
@@ -113,32 +112,37 @@ footer {
     padding: 0;
 }
 
-footer a.button {
-    width: 23%;
-    height: 32px;
-    display: inline-block;
+ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li.button {
+    width: 25%;
     text-align: center;
     position: relative;
     margin: 0;
-    padding-top: 11px;
+    padding: 11px;
     border: 0;
     color: #fff;
     cursor: default;
 }
 
-footer a.button.selected {
+li.selected {
     background: #707070;
 }
 
-footer a.button:hover {
+li.button:hover {
     background: #759ECC;
 }
 
-footer a.button.disabled {
+li.button.disabled {
     color: gray;
 }
 
-footer a.button.disabled:hover {
+li.button.disabled:hover {
     background-color: transparent;
 }
 
