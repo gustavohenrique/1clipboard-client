@@ -99,6 +99,8 @@ var app = (function (app) {
             app.UI.subpages.home.panel.show();
             app.UI.components.connectionPanel.removeClass('hide');
             app.UI.components.connectionPanel.find('.room').html(app.config.room);
+            app.UI.components.textarea.val('');
+            app.UI.components.urlUploadedFile.html('');
         },
 
         displayError: function (message) {

@@ -65,6 +65,7 @@ var app = (function (app) {
     var enterRoom = function () {
         var room = app.UI.components.txtRoom.val();
         if (room !== undefined && room !== '') {
+            localStorage.setItem('1clipboard.roomName', room);
             config.room = room;
             if (socket !== null) {
                 socket.emit('enter', room);
@@ -82,6 +83,17 @@ var app = (function (app) {
         }
     };
 
+    var connectAutomatically = function () {
+        try {
+            var roomName = localStorage.getItem('1clipboard.roomName');
+            app.UI.components.txtRoom.val(roomName);
+            enterRoom();
+        }
+        catch (e) {
+            // browser does not support Storage
+        }
+    }
+
     app.core = {
         start: function () {
             var createRandomRoom = function () {
@@ -98,6 +110,7 @@ var app = (function (app) {
                 app.UI.components.txtRoom.val(createRandomRoom());
             });
             app.UI.components.btnEnter.on('click', enterRoom);
+            connectAutomatically();
             app.upload.checkAuth();
         },
         
