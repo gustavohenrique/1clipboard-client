@@ -35,7 +35,6 @@ var app = (function (app) {
         topBar: $('#topBar'),
         uploadPanel: $('#uploadPanel'),
         progress: $('#progress'),
-        progressBar: $('#progress > .progress\-bar'),
         urlUploadedFile: $('#urlUploadedFile'),
         txtRoom: $('#txtRoom'),
         btnEnter: $('#btnEnter'),
@@ -116,7 +115,7 @@ var app = (function (app) {
             setTimeout(function () {
                 app.UI.components.successPanel.hide();
                 app.UI.afterConnect();
-            }, app.config.intervals.reconnect)
+            }, app.config.intervals.reconnect);
         }
 
     };

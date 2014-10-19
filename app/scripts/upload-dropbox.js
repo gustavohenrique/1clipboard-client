@@ -25,7 +25,7 @@ var app = (function (app) {
 
                     var filename = '/' + file.name;
 
-                    client.writeFile(filename, file , function(error, status) {
+                    client.writeFile(filename, file , function(error) {
                         if (error) {
                             UI.displayError(error);
                         }

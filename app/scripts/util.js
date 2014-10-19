@@ -14,7 +14,7 @@ var app = (function (app) {
         decode: function (message) {
             var m = message;
             try {
-                m = JSON.parse(decodeURIComponent(message))
+                m = JSON.parse(decodeURIComponent(message));
             }
             catch (e) {}
             return m;

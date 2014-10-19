@@ -1,5 +1,7 @@
 var app = (function (app) {
 
+    'use strict';
+
     var config = app.config,
         _decode = app.util.decode,
         _encode = app.util.encode,
@@ -70,14 +72,13 @@ var app = (function (app) {
             else {
                 socket = io(config.URL, {reconnectionDelay: config.intervals.reconnect});
             }
-                socket.on('connection', onConnect);
-                socket.on('connect_error', onError);
-                socket.on('reconnect', onReconnect);
+            socket.on('connection', onConnect);
+            socket.on('connect_error', onError);
+            socket.on('reconnect', onReconnect);
 
-                app.UI.components.textarea.on('keyup', startTimer);
-                app.UI.components.textarea.on('keydown', stopTimer);
-                app.UI.components.textarea.on('paste', startTimer);
-            
+            app.UI.components.textarea.on('keyup', startTimer);
+            app.UI.components.textarea.on('keydown', stopTimer);
+            app.UI.components.textarea.on('paste', startTimer);
         }
     };
 

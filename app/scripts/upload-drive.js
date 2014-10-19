@@ -32,11 +32,15 @@ var app = (function (app) {
 
         sendToDrive: function () {
             //var file = e.target.files[0];
+            var file = document.querySelector('#txtFile').files[0];
+
             var insertPermission = function (fileId, value, type, role) {
                 var body = {'value': value, 'type': type, 'role': role},
                     request = gapi.client.drive.permissions.insert({'fileId': fileId, 'resource': body});
 
-                request.execute(function(resp) { /* nothing to do after insert permission */ });
+                request.execute(function(resp) { 
+                    app.UI.components.progress.hide();
+                });
             };
 
             var insertFile = function (fileData, callback) {
@@ -46,7 +50,7 @@ var app = (function (app) {
 
                 var reader = new FileReader();
                 reader.readAsBinaryString(fileData);
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     var contentType = fileData.type || 'application/octet-stream';
                     var metadata = {
                         'title': fileData.name,
@@ -75,9 +79,13 @@ var app = (function (app) {
 
                     request.execute(callback);
                 };
+                
             };
 
-            var file = document.querySelector('#txtFile').files[0];
+            app.UI.components.progress.show();
+            app.UI.components.urlUploadedFile.html('');
+
+            
             gapi.client.load('drive', 'v2', function() {
                 insertFile(file, function(data) {
                     core.sendUploadedFile({
