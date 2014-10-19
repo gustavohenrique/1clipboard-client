@@ -72,7 +72,7 @@ body {
     border-style: solid;
 }
 
-.panel.success h2, .panel.success p {
+.panel.success h2, .panel.success span {
     color: #3c763d;
 }
 
